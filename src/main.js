@@ -30,26 +30,22 @@ scene.add(pointLight);
 const loader = new GLTFLoader();
 
 loader.load(
-    './public/models/computer.glb',
+    '../public/models/computer.glb',
     function (gltf) {
         console.log('Success: Model loaded!', gltf);
         scene.add(gltf.scene);
         scene.remove(cube);
         
-        // Log the model's position and scale
-        console.log('Model position:', gltf.scene.position);
+        // Add position and scale logging
+        console.log('Model loaded at position:', gltf.scene.position);
         console.log('Model scale:', gltf.scene.scale);
-        
-        // Add these lines to help debug the model's position
-        gltf.scene.position.set(0, 0, 0);
-        gltf.scene.scale.set(1, 1, 1);
     },
     function (xhr) {
         console.log('Progress:', (xhr.loaded / xhr.total * 100) + '% loaded');
     },
     function (error) {
         console.error('Error loading model:', error);
-        // Keep the cube visible as fallback
+        console.error('Attempted path:', '../public/models/computer.glb');
     }
 );
 
