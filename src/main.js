@@ -26,22 +26,27 @@ const pointLight = new THREE.PointLight(0xffffff, 1);
 pointLight.position.set(5, 5, 5);
 scene.add(pointLight);
 
-// Try loading the model
+// Try loading the model with more detailed error logging
 const loader = new GLTFLoader();
+const modelPath = '/3d-viewer-project/public/models/retro-computer.glb';
+
 loader.load(
-    './public/models/retro-computer.glb',  // Try this path first
+    modelPath,
     function (gltf) {
-        console.log('Model loaded successfully!');
+        console.log('Success: Model loaded!', gltf);
         scene.add(gltf.scene);
-        // Once the model is loaded, we can remove the cube
         scene.remove(cube);
+        
+        // Log the model's position and scale
+        console.log('Model position:', gltf.scene.position);
+        console.log('Model scale:', gltf.scene.scale);
     },
     function (xhr) {
-        console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+        console.log('Progress:', (xhr.loaded / xhr.total * 100) + '% loaded');
     },
     function (error) {
-        console.error('Error loading model:', error);
-        // Keep the cube visible if model fails to load
+        console.error('Error loading model from path:', modelPath);
+        console.error('Error details:', error);
     }
 );
 
