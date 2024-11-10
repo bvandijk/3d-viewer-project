@@ -40,26 +40,13 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
 directionalLight.position.set(5, 5, 5);
 scene.add(directionalLight);
 
-// Load 3D model
-const loader = new GLTFLoader();
-loader.load(
-    '/3d-viewer-project/public/models/retro-computer.glb',
-    function (gltf) {
-        console.log('Model loaded successfully!');
-        scene.add(gltf.scene);
-        gltf.scene.position.set(0, 0, 0);
-        gltf.scene.scale.set(1, 1, 1);
-    },
-    function (xhr) {
-        console.log(`Loading progress: ${(xhr.loaded / xhr.total * 100)}%`);
-    },
-    function (error) {
-        console.error('Error details:', {
-            message: error.message,
-            stack: error.stack
-        });
-    }
-);
+// Option 1: Create a simple cube for testing
+const geometry = new THREE.BoxGeometry(1, 1, 1);
+const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+const cube = new THREE.Mesh(geometry, material);
+scene.add(cube);
+
+// Comment out or remove the GLTFLoader code temporarily for this test
 
 // Handle window resize
 window.addEventListener('resize', () => {
