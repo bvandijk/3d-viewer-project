@@ -30,7 +30,7 @@ scene.add(pointLight);
 const loader = new GLTFLoader();
 
 loader.load(
-    '/3d-viewer-project/public/models/Domae_Retro_Computer_without_video.glb',
+    './public/models/Domae_Retro_Computer_without_video.glb',
     function (gltf) {
         console.log('Success: Model loaded!', gltf);
         scene.add(gltf.scene);
