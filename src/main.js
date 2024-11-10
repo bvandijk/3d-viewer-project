@@ -30,7 +30,7 @@ scene.add(backLight);
 // Load the model with full GitHub Pages URL
 const loader = new GLTFLoader();
 loader.load(
-    'https://domae-space.github.io/3d-viewer-project/public/models/computer.glb',
+    '../Public/models/computer.glb',  // Updated path to local/hosted file
     function (gltf) {
         console.log('Model loaded successfully!');
         const model = gltf.scene;
@@ -42,11 +42,15 @@ loader.load(
         });
         
         // Try different scales if model is too big/small
-        model.scale.set(1, 1, 1);
+        model.scale.set(6, 6, 6);
+
+        // Slightly turn the model to show depth
+        model.rotation.y =  -(Math.PI / 4); // Rotate 45 degrees around Y-axis
         
         scene.add(model);
 
         // Optional: Add orbit controls here if you want to debug camera position
+        camera.position.set(0, 1, 5); // Adjust position to move closer
     },
     function (xhr) {
         console.log((xhr.loaded / xhr.total * 100) + '% loaded');
