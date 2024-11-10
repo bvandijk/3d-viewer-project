@@ -43,7 +43,7 @@ scene.add(directionalLight);
 // Load 3D model
 const loader = new GLTFLoader();
 loader.load(
-    '/public/models/retro-computer.glb',
+    './public/models/retro-computer.glb',
     function (gltf) {
         console.log('Model loaded successfully!');
         scene.add(gltf.scene);
