@@ -28,10 +28,9 @@ scene.add(pointLight);
 
 // Try loading the model with more detailed error logging
 const loader = new GLTFLoader();
-const modelPath = '/3d-viewer-project/public/models/retro-computer.glb';
 
 loader.load(
-    modelPath,
+    '/3d-viewer-project/public/models/Domae_Retro_Computer_without_video.glb',
     function (gltf) {
         console.log('Success: Model loaded!', gltf);
         scene.add(gltf.scene);
@@ -45,8 +44,7 @@ loader.load(
         console.log('Progress:', (xhr.loaded / xhr.total * 100) + '% loaded');
     },
     function (error) {
-        console.error('Error loading model from path:', modelPath);
-        console.error('Error details:', error);
+        console.error('Error loading model:', error);
     }
 );
 
