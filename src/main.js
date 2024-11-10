@@ -1,5 +1,6 @@
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
 
 // Create scene
 const scene = new THREE.Scene();
@@ -26,26 +27,30 @@ const pointLight = new THREE.PointLight(0xffffff, 1);
 pointLight.position.set(5, 5, 5);
 scene.add(pointLight);
 
-// Try loading the model with more detailed error logging
-const loader = new GLTFLoader();
+// Load materials first, then the object
+const mtlLoader = new MTLLoader();
+const objLoader = new OBJLoader();
 
-loader.load(
-    '../public/models/computer.glb',
-    function (gltf) {
-        console.log('Success: Model loaded!', gltf);
-        scene.add(gltf.scene);
-        scene.remove(cube);
+mtlLoader.load(
+    './public/models/computer.mtl',
+    function (materials) {
+        materials.preload();
+        objLoader.setMaterials(materials);
         
-        // Add position and scale logging
-        console.log('Model loaded at position:', gltf.scene.position);
-        console.log('Model scale:', gltf.scene.scale);
-    },
-    function (xhr) {
-        console.log('Progress:', (xhr.loaded / xhr.total * 100) + '% loaded');
-    },
-    function (error) {
-        console.error('Error loading model:', error);
-        console.error('Attempted path:', '../public/models/computer.glb');
+        objLoader.load(
+            './public/models/computer.obj',
+            function (object) {
+                console.log('Model loaded successfully!');
+                scene.add(object);
+                scene.remove(cube);
+            },
+            function (xhr) {
+                console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+            },
+            function (error) {
+                console.error('Error loading model:', error);
+            }
+        );
     }
 );
 
