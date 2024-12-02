@@ -1,5 +1,7 @@
-import * as THREE from 'three';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+document.addEventListener('DOMContentLoaded', function () {
+    if (typeof ThreeWP !== 'undefined') {
+
+	const { THREE, GLTFLoader } = ThreeWP;
 
 // Create scene
 const scene = new THREE.Scene();
@@ -30,7 +32,7 @@ scene.add(backLight);
 // Load the model with full GitHub Pages URL
 const loader = new GLTFLoader();
 loader.load(
-    '../Public/models/computer.glb',  // Updated path to local/hosted file
+    'http://localhost:8888/mirthe/wp-content/uploads/2024/12/computer.glb',
     function (gltf) {
         console.log('Model loaded successfully!');
         const model = gltf.scene;
@@ -76,3 +78,5 @@ function onWindowResize() {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
+
+}})
